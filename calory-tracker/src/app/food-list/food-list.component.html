@@ -1,0 +1,69 @@
+<p>food-list works!</p>
+<div class="foods">
+  <div class="search-box">
+    <label for="foodSearch">Search</label>
+    <br>
+    <input id="food-search" type="text" [(ngModel)]="pattern" />
+  </div>
+
+  <div class="container">
+    <div class="new-food">
+      <button (click)="enableUserToAddFood()" class="new-food-button" text="ADD NEW FOOD"></button>
+      <br />
+      <div *ngIf="isEditing"></div>
+      <br />
+      <label for="new-food-name">Name</label>
+      <input type="text" [(ngModel)]="newFoodName" placeholder="EXAMPLE NAME" />
+      <br />
+      <br />
+    </div>
+
+    <div>
+      <label for="new-food-calories">Calories</label>
+
+      <input type="text" [(ngModel)]="newFoodCalories" placeholder="250" />
+      <br />
+      <br />
+    </div>
+
+    <div>
+      <label for="new-food-image">Image</label>
+      <input type="text" [(ngModel)]="newFoodImage" placeholder="http://image/" />
+      <br />
+      <br />
+    </div>
+
+    <button (click)="newFood()" class="add" ADD FOOD></button>
+  </div>
+  <div>
+    <ul class="food-list">
+      <li class="single-food" *ngIf="isEditing">
+        <img [src]="newFoodImage" />
+        <h3 class="food-name">
+          {{ newofFoodName }}
+          <small class="food calories" {{newFoodCalories}}></small>
+        </h3>
+      </li>
+
+      <li class="single-food" *ngFor="let food of foods | foodSearch: 'name':pattern">
+        <img [src]="food.Image" />
+        <h3 class="food-name">
+          {{ food.Name }}
+          <small class="new-food-calories">{{ food.Calories }}</small>
+        </h3>
+        <input type="text" quantity value="1" />
+        <button (click)="addToMyList(food, quantity)">ADD</button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="my food list">
+    <h2>Today's food <small {{totalCalories}} cal></small></h2>
+    <ul>
+      <li *ngFor="let food of myList">
+        <span>{{ food.Name }}</span>
+        <span>{{ food.calories }}</span>
+        <span *ngIf="food.quantity > 1"> x{{ food.quantity }}</span>
+      </li>
+    </ul>
+  </div>
